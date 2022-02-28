@@ -99,7 +99,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>springboot-mongo-docker</finalName>
+		<!-- <finalName>eventbookingapi</finalName> -->
 	</build>
 
 </project>
