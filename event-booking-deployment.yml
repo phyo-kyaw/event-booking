@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-booking-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-booking-api
+  template:
+    metadata:
+      labels:
+        app: event-booking-api
+    spec:
+      containers:
+        - name: event-booking-api
+          image: pkdocker3383/event-booking-api:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          #env:
+            #- name: PORT
+              #value: "8080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-booking-api
+  labels:
+    app: event-booking-api
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: event-booking-api

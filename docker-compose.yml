@@ -1,0 +1,68 @@
+version: '3.3'
+services:
+  dockermongo:
+    image: mongo:latest
+    container_name: "dockermongo"
+#    volumes:
+#      - C:/Users/S/Desktop/database_test:/data/db
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - kafka
+  springboot:
+    image: shwetalishine/booking-service-docker-compose:1.0
+    container_name: springboot
+    ports:
+      - 8080:8080
+    links:
+      - dockermongo
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 'kafka:9092'
+    depends_on:
+      - kafka
+    restart: always
+    networks:
+      - kafka
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka_container
+    environment:
+      HOSTNAME_COMMAND: "hostname -i"
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://_{HOSTNAME_COMMAND}:9092
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    restart: on-failure
+    volumes:
+      - kafka_data:/kafka
+    depends_on:
+      - zookeeper
+    networks:
+      - kafka
+
+    # Kafka requires Zookeper
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper_container
+    networks:
+      - kafka
+
+  #  helloworld:
+  #      image: docker-springboot-kafka:latest
+  #      environment:
+  #        SPRING_KAFKA_BOOTSTRAP_SERVERS: 'kafka:9092'
+  #      depends_on:
+  #        - kafka
+  #      restart: always
+  #      networks:
+  #        - kafka
+
+volumes:
+  kafka_data:
+  mongo_data:
+
+networks:
+  default:
+  kafka:

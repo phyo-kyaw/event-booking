@@ -1,0 +1,23 @@
+spring:
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: bookingDb
+  kafka:
+    bootstrapAddress: kafka:9092
+    #    bootstrap-servers: [ "kafka-2.default.svc.cluster.local:9092" ] #bootstrap server config for kubernetes
+    producer:
+      #      bootstrap-servers: [ "kafka-2.default.svc.cluster.local:9092" ] #bootstrap server config for kubernetes
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      #      bootstrap-servers: [ "kafka-2.default.svc.cluster.local:9092" ] #bootstrap server config for kubernetes
+      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'

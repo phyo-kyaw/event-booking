@@ -1,0 +1,61 @@
+#spring:
+#  profiles:
+#    active: dev
+
+server:
+  port: 8080
+#  kafka:
+##    bootstrapAddress: localhost:9092
+#    bootstrapAddress: ["kafka-2.default.svc.cluster.local:9092"]
+##    bootstrapAddress: kafka-0:9092
+#    producer:
+#      bootstrap-servers: ["kafka-2.default.svc.cluster.local:9092"]
+#      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    consumer:
+#      bootstrap-servers: ["kafka-2.default.svc.cluster.local:9092"]
+#      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      auto-offset-reset: earliest
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: '*'
+
+
+#config for kubernetes database host
+
+#  application:
+#    name: booking-service
+#  data:
+#    mongodb:
+#      host: '${MONGO_HOST}'
+#      database: '${MONGO_DB}'
+#      port: 27017
+#      username: '${MONGO_USERNAME}'
+#      password: '${MONGO_PASSWORD}'
+#  cloud:
+#    kubernetes:
+#      discovery:
+#        register: true
+#      secrets:
+#        name: mongo-secret
+#
+#      config:
+#        enabled: true
+#        sources:
+#          - namespace: default
+#            name: mongo-conf
+#      reload:
+#        enabled: true
+#        mode: polling
+#        period: 1000
+#management:
+#  endpoint:
+#    restart:
+#      enabled: true
+#    health:
+#      enabled: true
+#    info:
+#      enabled: true
